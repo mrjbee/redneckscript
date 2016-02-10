@@ -28,6 +28,7 @@ def describe(usage, **options):
                       "-v or -i for debug or info log level",
                       '--config {\\"key\\":\\"value\\"} for inline configuration')
         sys.exit(2)
+
     if '-h' in SCRIPT_OPTS:
         __print_usage(usage, option_description,
                       "-h for help [this] message",
