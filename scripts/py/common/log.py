@@ -1,14 +1,15 @@
 __author__ = 'mrjbee'
 import logging
-from common.args import log_level
+import sys, os
+from common.args import log_level, is_tty_mode
 
 # -----------LOGGING SETUP----------
 LOG_LEVEL = log_level()
 # -----------LOGGING SETUP END----------
+directory, filename = os.path.split(os.path.abspath(sys.argv[0]))
+LOGGER = logging.getLogger(filename)
 
-LOGGER = logging.getLogger('REDNECK')
-
-LOGGER_DEFAULT_FORMATTER = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
+LOGGER_DEFAULT_FORMATTER = logging.Formatter('%(asctime)s [%(name)s - %(levelname)s] %(message)s')
 LOGGER.setLevel(LOG_LEVEL)
 LOGGER_CONSOLE_HANDLER = logging.StreamHandler()
 LOGGER_CONSOLE_HANDLER.setFormatter(LOGGER_DEFAULT_FORMATTER)

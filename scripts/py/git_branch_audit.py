@@ -1,15 +1,11 @@
 __author__ = 'mrjbee'
-import sys
 
-from common.args import describe, is_tty_mode
+from common.args import describe
 
-describe("Retrieve head commits of all branches")
 
-from common import utils
+def body(config):
+    return {}
 
-config = utils.configuration_json()
-if not is_tty_mode():
-    for line in sys.stdin:
-        print(">>" + line)
+describe(body, "Retrieve head commits of all branches")
 
-print("End of script")
+
