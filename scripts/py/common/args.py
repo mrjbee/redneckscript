@@ -20,24 +20,24 @@ def describe(usage, **options):
         option_description = option_description + '\n -' + key[:1] + ' ' + options[key]
 
     try:
-        SCRIPT_OPTS, SCRIPT_ARGS = getopt.getopt(sys.argv[1:], short_options, ["config="])
+        SCRIPT_OPTS, SCRIPT_ARGS = getopt.getopt(sys.argv[1:], short_options, ["config=", "tty-mode"])
         SCRIPT_OPTS = dict(SCRIPT_OPTS)
     except getopt.GetoptError:
-        __print_usage(usage, option_description,
-                      "-h for help [same] message",
-                      "-v or -i for debug or info log level",
-                      '--config {\\"key\\":\\"value\\"} for inline configuration')
+        __print_usage(usage, option_description)
         sys.exit(2)
 
     if '-h' in SCRIPT_OPTS:
-        __print_usage(usage, option_description,
-                      "-h for help [this] message",
-                      "-v or -i for debug or info log level",
-                      '--config {\\"key\\":\\"value\\"} for inline configuration')
+        __print_usage(usage, option_description)
         sys.exit(0)
 
 
-def __print_usage(usage, options, *extra):
+def __print_usage(usage, options):
+    extra = [
+        "-h for help [this] message",
+        "-v or -i for debug or info log level",
+        '--tty-mode force tty mode',
+        '--config {\\"key\\":\\"value\\"} for inline configuration'
+    ]
     print()
     print("\t" + usage)
     print()
@@ -45,6 +45,7 @@ def __print_usage(usage, options, *extra):
     print(options)
     for extraOption in extra:
         print("\t" + extraOption)
+    print()
 
 
 def log_level():
@@ -56,6 +57,10 @@ def log_level():
     elif '-v' in SCRIPT_OPTS.keys():
         return logging.DEBUG
     return logging.WARN
+
+
+def is_tty_mode():
+    return sys.stdin.isatty() or ('--tty-mode' in SCRIPT_OPTS.keys())
 
 
 def inline_config():
