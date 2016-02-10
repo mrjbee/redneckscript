@@ -3,9 +3,10 @@ __author__ = 'mrjbee'
 from common.args import describe
 
 
-def body(config):
+def excute(config):
     return {}
 
-describe(body, "Retrieve head commits of all branches")
+
+describe(excute, "Retrieve head commits of all branches")
 
 
