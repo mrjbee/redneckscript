@@ -9,7 +9,7 @@ SCRIPT_OPTS = None
 SCRIPT_ARGS = None
 
 
-def describe(func, usage, **options):
+def build_args(usage, options):
     global SCRIPT_OPTS
     global SCRIPT_ARGS
 
@@ -30,22 +30,6 @@ def describe(func, usage, **options):
     if '-h' in SCRIPT_OPTS:
         __print_usage(usage, option_description)
         sys.exit(0)
-
-    # HAVE TO IMPORT IT HERE BECAUSE OF LOGGING INITIALIZATION
-    from common.utils import config, merge_configs
-
-    config = config()
-    answer = func(config)
-    merge_configs(config, answer)
-
-    if is_tty_mode(True):
-        print()
-        json.dump(config, sys.stdout, sort_keys=True, indent=4, separators=(',', ': '))
-        print()
-        print()
-    else:
-        json.dump(config, sys.stdout)
-
 
 def __print_usage(usage, options):
     extra = [

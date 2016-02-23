@@ -1,12 +1,16 @@
 __author__ = 'mrjbee'
 
-from common.args import describe
+from common import script
+
+script.DEF_DESCRIPTION = "Retrieve head commits of all branches"
+script.DEF_CONFIG_EXAMPLE = {
+    'something': "value"
+}
 
 
-def excute(config):
+def execution(config, opts):
     return {}
 
-
-describe(excute, "Retrieve head commits of all branches")
+script.execute(execution)
 
 
