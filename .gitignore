@@ -1,3 +1,6 @@
 *.local.*
 .idea
 *.pyc
+build/*
+dist/*
+redneckscript.egg-info/*
